@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 // import db from "./prisma-client.js";
 import usersRoute from "./router/user-route.js";
+import moviesRoute from "./router/movie-route.js";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", usersRoute);
+app.use("/movies", moviesRoute);
 
 app.listen(PORT, () => {
 	console.log("Server Running at port", PORT);
