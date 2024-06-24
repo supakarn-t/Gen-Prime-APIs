@@ -19,7 +19,34 @@ router.get("/:movieId", async (req, res, next) => {
 	res.json(movie);
 });
 
-router.post("/movies", async (req, res, next) => {
-	console.log(first);
+router.post("/", async (req, res, next) => {
+	const { title, description, image, releaseDate, genre, rating, duration } =
+		req.body;
+
+	if (
+		!title ||
+		!description ||
+		!image ||
+		!releaseDate ||
+		!genre ||
+		!rating ||
+		!duration
+	) {
+		return res.status(400).json({ message: "All field required" });
+	}
+
+	const newMovie = await db.movie.create({
+		data: {
+			title,
+			description,
+			image,
+			releaseDate,
+			genre,
+			rating: +rating,
+			duration: +duration,
+		},
+	});
+	return res.json(newMovie);
 });
+
 export default router;
